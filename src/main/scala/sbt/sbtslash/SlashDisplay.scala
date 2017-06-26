@@ -5,7 +5,7 @@ object SlashDisplay {
   // from Def.scala
   def showRelativeKey(current: ProjectRef, multi: Boolean, keyNameColor: Option[String] = None): Show[ScopedKey[_]] = new Show[ScopedKey[_]] {
     def apply(key: ScopedKey[_]) =
-      Scope.display(key.scope,
+      SlashScope.display(key.scope,
         Def.colored(key.key.label, keyNameColor),
         ref => displayRelative(current, multi, ref, true))
   }

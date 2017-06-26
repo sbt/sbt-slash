@@ -1,4 +1,4 @@
-> commands
+> inspect tree Test/compile
 
 > root/Compile/compile
 
@@ -12,4 +12,4 @@
 
 > show root / Compile / compile / scalacOptions
 
-# > show Zero / Zero / name
+> show Zero / Zero / name

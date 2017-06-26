@@ -212,6 +212,16 @@ object SlashParser {
         (MultiTaskCommand ^^^ MultiAction)) <~ Space
     ) ?? SingleAction
 
+  def scopedKeyParser(state: State): Parser[ScopedKey[_]] = scopedKeyParser(Project extract state)
+  def scopedKeyParser(extracted: Extracted): Parser[ScopedKey[_]] = scopedKeyParser(extracted.structure, extracted.currentRef)
+  def scopedKeyParser(structure: BuildStructure, currentRef: ProjectRef): Parser[ScopedKey[_]] =
+    scopedKey(structure.index.keyIndex, currentRef, structure.extra.configurationsForAxis, structure.index.keyMap, structure.data)
+  
+  // this does not take aggregation into account
+  def scopedKey(index: KeyIndex, current: ProjectRef, defaultConfigs: Option[ResolvedReference] => Seq[String],
+    keyMap: Map[String, AttributeKey[_]], data: Settings[Scope]): Parser[ScopedKey[_]] =
+    scopedKeySelected(index, current, defaultConfigs, keyMap, data).map(_.key)
+
   // borrowed from sbt
   type KeysParser = Parser[Seq[ScopedKey[T]] forSome { type T }]
   private def aggregatedKeyParser(state: State): KeysParser = aggregatedKeyParser(Project extract state)

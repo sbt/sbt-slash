@@ -3,6 +3,7 @@ package sbtslash
 
 import sbt._
 import Keys._
+import CommandStrings.InspectCommand
 
 object SlashSyntaxPlugin extends AutoPlugin {
   override def requires = plugins.JvmPlugin
@@ -24,6 +25,9 @@ object SlashSyntaxPlugin extends AutoPlugin {
             case ("show <key>", _) :: xs => SlashParser.act 
             case _                       => c
           }
+        case c: SimpleCommand =>
+          if (c.name == InspectCommand) SlashInspect.inspect
+          else c
         case x => x
       }
       s.copy(definedCommands = ks)
