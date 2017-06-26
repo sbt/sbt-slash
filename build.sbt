@@ -1,5 +1,5 @@
 lazy val commonSettings: Seq[Setting[_]] = Seq(
-  version in ThisBuild := "0.1.0-SNAPSHOT",
+  version in ThisBuild := "0.1.0",
   organization in ThisBuild := "com.eed3si9n"
 )
 
@@ -17,5 +17,8 @@ lazy val root = (project in file(".")).
     scriptedLaunchOpts := { scriptedLaunchOpts.value ++
       Seq("-Xmx1024M", "-XX:MaxPermSize=256M", "-Dplugin.version=" + version.value)
     },
-    scriptedBufferLog := false
+    scriptedBufferLog := false,
+    publishMavenStyle := false,
+    bintrayOrganization := None,
+    bintrayRepository := "sbt-plugins"
   )
