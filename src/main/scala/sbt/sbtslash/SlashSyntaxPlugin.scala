@@ -10,6 +10,10 @@ object SlashSyntaxPlugin extends AutoPlugin {
 
   override lazy val globalSettings: Seq[Def.Setting[_]] = slashSettings
 
+  object autoImport extends SlashSyntax {
+    val Zero = Global
+  }
+
   lazy val slashSettings: Seq[Def.Setting[_]] = Vector(
     onLoad := { s =>
       val ks0 = s.definedCommands
