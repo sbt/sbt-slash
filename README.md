@@ -72,4 +72,9 @@ lazy val root = (project in file("."))
   )
 ```
 
+notes
+-----
+
+If this syntax is proven to be useful, we intend to introduce this as part of sbt in the future.
+
   [contrib]: https://contributors.scala-lang.org/t/unification-of-sbt-shell-notation-and-build-sbt-dsl/913
