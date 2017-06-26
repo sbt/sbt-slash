@@ -8,9 +8,10 @@ import BasicCommandStrings._
 import complete.{ DefaultParsers, Parser }
 import CommandStrings.{ MultiTaskCommand, ShowCommand }
 import Aggregation.{ KeyValue, Values }
-import Def.{ showRelativeKey, ScopedKey }
+import Def.ScopedKey
 import Act.{ key, defaultConfigurations, select, extraAxis, toAxis, examplesStrict, examples => examples2,
   nonEmptyConfig, filterStrings }
+import SlashDisplay.showRelativeKey
 
 object SlashParser {
   import DefaultParsers._
@@ -73,7 +74,7 @@ object SlashParser {
       select(choices, data)(showRelativeKey(current, index.buildURIs.size > 1))
     }
 
-  def scopedKeyFull(index: KeyIndex, current: ProjectRef, defaultConfigs: Option[ResolvedReference] => Seq[String], keyMap: Map[String, AttributeKey[_]]): Parser[Seq[Parser[ParsedKey]]] =
+  private def scopedKeyFull(index: KeyIndex, current: ProjectRef, defaultConfigs: Option[ResolvedReference] => Seq[String], keyMap: Map[String, AttributeKey[_]]): Parser[Seq[Parser[ParsedKey]]] =
     {
       def taskKeyExtra(proj: Option[ResolvedReference], confAmb: ParsedAxis[String], baseMask: ScopeMask): Seq[Parser[ParsedKey]] =
         for {
